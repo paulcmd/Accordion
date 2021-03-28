@@ -4,20 +4,26 @@ const Accordion = ({ items }) => {
 
     const [activeIndex, setActiveIndex] = useState(null)
 
-    const onTitlleClick = (index) =>{
+    const onTitleClick = (index) =>{
         setActiveIndex(index)
     }
 
     const renderedItems = items.map((item, index) => {
+
+    const activateClass = activeIndex === index ? 'active' : ''
+
         return (
             <React.Fragment key={index}>
-                <div onClick={() => onTitlleClick(index)} className='title active'>
+                <div 
+                onClick={() => onTitleClick(index)} 
+                className={`title ${activateClass}`}>
                     <i className='dropdown icon'></i>
                     <h2>
                         {item.title}
                     </h2>
                 </div>
-                <div className='content active'>
+
+                <div className={`content ${activateClass}`}>
                     <p>
                         {item.content}
                     </p>
@@ -29,13 +35,16 @@ const Accordion = ({ items }) => {
     })
     return <div className='ui styled accordion'>
         {renderedItems}
-        {renderedItems[activeIndex]}
         </div>
 }
 
 export default Accordion;
 
 /* 
+const [firstElement, secondElement] = someArray
+square brackets are just a way of getting the first 2 elements of the array, they do
+not create an array. ie array destructuring
+
 Using React.Fragment to remove the extra border at the top of the div
 
 When helper function (onTitleClick) is defined outside renderedItems, we passed in index
