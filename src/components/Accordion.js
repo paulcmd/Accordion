@@ -1,26 +1,27 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
 const Accordion = ({ items }) => {
 
     const [activeIndex, setActiveIndex] = useState(null)
 
-    const onTitleClick = (index) =>{
+    const onTitleClick = (index) => {
         setActiveIndex(index)
     }
 
     const renderedItems = items.map((item, index) => {
 
-    const activateClass = activeIndex === index ? 'active' : ''
+        const activateClass = activeIndex === index ? 'active' : ''
 
         return (
             <React.Fragment key={index}>
-                <div 
-                onClick={() => onTitleClick(index)} 
-                className={`title ${activateClass}`}>
+                <div
+                    onClick={() => onTitleClick(index)}
+                    className={`title ${activateClass}`}
+                >
                     <i className='dropdown icon'></i>
-                    <h2>
-                        {item.title}
-                    </h2>
+
+                    {item.title}
+
                 </div>
 
                 <div className={`content ${activateClass}`}>
@@ -35,12 +36,12 @@ const Accordion = ({ items }) => {
     })
     return <div className='ui styled accordion'>
         {renderedItems}
-        </div>
+    </div>
 }
 
 export default Accordion;
 
-/* 
+/*
 const [firstElement, secondElement] = someArray
 square brackets are just a way of getting the first 2 elements of the array, they do
 not create an array. ie array destructuring
