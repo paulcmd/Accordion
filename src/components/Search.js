@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
 const Search = () => {
-    const [term, setTerm] = useState('')
-    const [results, setResults] = useEffect([])
+    const [term, setTerm] = useState('programming')
+    const [results, setResults] = useState([])
+
+    console.log(results)
 
     useEffect(() => {
         const search = async () => {
@@ -19,12 +21,24 @@ const Search = () => {
                     }
                 }
             )
-
-            setResults(data)
+            setResults(data.query.search)
         }
 
         search()
     }, [term])
+
+    const renderedResults = results.map((result) => {
+        return (
+            <div key={result.pageid} className="item">
+                <div className="content">
+                    <div className="header">{result.title}</div>
+                    <span
+                        dangerouslySetInnerHTML={{ __html: result.snippet }}
+                    ></span>
+                </div>
+            </div>
+        )
+    })
 
     return (
         <div>
@@ -38,6 +52,7 @@ const Search = () => {
                     />
                 </div>
             </div>
+            <div className="ui celled list">{renderedResults}</div>
         </div>
     )
 }
@@ -52,4 +67,7 @@ useEffect 2nd arg -
 
 alternatively in useEffect you can choose not to declare the function ie const search
 ie async.... and call/invoke the function immediately after ie () vid 158 at 5min
+
+dangerouslySetInnerHTML is setting the HTML spans from wikipedia to jsx spans that can be
+rendered
 */
