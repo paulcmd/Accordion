@@ -3,9 +3,20 @@ import axios from 'axios'
 
 const Search = () => {
     const [term, setTerm] = useState('programming')
+    const [debouncedTerm, setDebouncedTerm] = useState(term)
     const [results, setResults] = useState([])
 
-    console.log(results)
+    //console.log(results)
+
+    useEffect(() => {
+        const timerId = setTimeout(() => {
+            setDebouncedTerm(term)
+        }, 1000)
+
+        return () => {
+            clearTimeout(timerId)
+        }
+    }, [term])
 
     useEffect(() => {
         const search = async () => {
@@ -17,16 +28,17 @@ const Search = () => {
                         list: 'search',
                         origin: '*',
                         format: 'json',
-                        srsearch: term
+                        srsearch: debouncedTerm
                     }
                 }
             )
+
             setResults(data.query.search)
         }
-        if (term) {
+        if (debouncedTerm) {
             search()
         }
-    }, [term])
+    }, [debouncedTerm])
 
     const renderedResults = results.map((result) => {
         return (
@@ -79,4 +91,8 @@ ie async.... and call/invoke the function immediately after ie () vid 158 at 5mi
 
 dangerouslySetInnerHTML is setting the HTML spans from wikipedia to jsx spans that can be
 rendered
+
+Each setTimeout has its own identifier that can be accessed if one needs to cancel it. ie clearTimeout(117)
+
+debounced generally means setting up a timer that gets cancelled if a change is made too soon
 */
