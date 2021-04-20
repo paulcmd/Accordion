@@ -1,14 +1,20 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 const Dropdowm = ({ options, selected, onSelectedChange }) => {
-    
     const [open, setOpen] = useState(false)
+    const ref = useRef()
 
     useEffect(() => {
-        document.body.addEventListener('click', () => {
-            console.log('CLICK!!!')
-        })
-    },[])
+        document.body.addEventListener(
+            'click',
+            (e) => {
+                setOpen(false)
+            },
+            {
+                capture: true
+            }
+        )
+    }, [])
 
     const renderedOptions = options.map((option) => {
         if (option.value === selected.value) {
@@ -24,8 +30,11 @@ const Dropdowm = ({ options, selected, onSelectedChange }) => {
             </div>
         )
     })
+
+    console.log(ref.current)
+    
     return (
-        <div className="ui form">
+        <div ref={ref} className="ui form">
             <div className="field">
                 <label className="label"> Select a color</label>
                 <div
@@ -50,7 +59,9 @@ if(option.value === selected.value){
             return null
         }
 
-        if current div is the selected div, do not show it
-*/
+        if current div is the selected div, do not show it. its already showing at the top
+
+useRef - directly references a DOM element eg. div or li item
+        */
 
 export default Dropdowm
