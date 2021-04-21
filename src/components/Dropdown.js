@@ -8,6 +8,9 @@ const Dropdowm = ({ options, selected, onSelectedChange }) => {
         document.body.addEventListener(
             'click',
             (e) => {
+                if (ref.current.contains(e.target)) {
+                    return
+                }
                 setOpen(false)
             },
             {
@@ -32,7 +35,7 @@ const Dropdowm = ({ options, selected, onSelectedChange }) => {
     })
 
     console.log(ref.current)
-    
+
     return (
         <div ref={ref} className="ui form">
             <div className="field">
@@ -62,6 +65,10 @@ if(option.value === selected.value){
         if current div is the selected div, do not show it. its already showing at the top
 
 useRef - directly references a DOM element eg. div or li item
+
+12 - if div we clicked (item) is within the component(ui form) then just return without
+ changing anything, else close dropdown. NB either way drop down will still close because
+ clicked it
         */
 
 export default Dropdowm
