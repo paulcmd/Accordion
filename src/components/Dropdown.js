@@ -38,7 +38,7 @@ const Dropdowm = ({ label, options, selected, onSelectedChange }) => {
         )
     })
 
-    console.log(ref.current)
+    //console.log(ref.current)
 
     return (
         <div ref={ref} className="ui form">
