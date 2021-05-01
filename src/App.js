@@ -3,6 +3,9 @@ import Accordion from './components/Accordion'
 import Search from './components/Search'
 import Dropdown from './components/Dropdown'
 import Translate from './components/Translate'
+import Users from './components/Users'
+import Route from './components/Route'
+import Header from './components/Header'
 
 const items = [
     {
@@ -35,18 +38,30 @@ const options = [
 ]
 
 const App = () => {
-    // const [selected, setSelected] = useState(options[0])
+    const [selected, setSelected] = useState(options[0])
 
     return (
         <div className="container">
-            {/* <Accordion items={items}/> */}
-            {/* <Search /> */}
-            {/* <Dropdown
-                selected={selected}
-                onSelectedChange={setSelected}
-                options={options}
-            /> */}
-            <Translate />
+            <Header />
+            <Route path="/">
+                <Accordion items={items} />
+            </Route>
+
+            <Route path="/search">
+                <Search />
+            </Route>
+            <Route path="/dropdown">
+                <Dropdown
+                    selected={selected}
+                    onSelectedChange={setSelected}
+                    options={options}
+                />
+            </Route>
+            <Route path="/translate">
+                <Translate />
+            </Route>
+
+            {/* <Users /> */}
         </div>
     )
 }
